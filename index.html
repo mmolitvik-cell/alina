@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diana Moon</title>
+  <title>Diana Moon | VIP Access</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,8 +12,8 @@
     }
 
     body {
-      background-color: #0b0c10;
-      color: #e0e0e0;
+      background: radial-gradient(circle at 50% 10%, #1f1b2e 0%, #090a0f 100%);
+      color: #e6e8ec;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -31,29 +31,77 @@
       text-align: center;
     }
 
+    /* Аватарка со статусом */
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
     .avatar {
-      width: 106px;
-      height: 106px;
+      width: 114px;
+      height: 114px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 18px;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      display: block;
+      border: 3px solid rgba(255, 65, 108, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 65, 108, 0.25);
+    }
+
+    .online-pulse {
+      position: absolute;
+      bottom: 5px;
+      right: 7px;
+      width: 15px;
+      height: 15px;
+      background: #00e676;
+      border-radius: 50%;
+      border: 2.5px solid #090a0f;
+      box-shadow: 0 0 0 rgba(0, 230, 118, 0.5);
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+    }
+
+    /* Бейдж активности */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #00e676;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
     }
 
     .name {
-      font-size: 1.35rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: #ffffff;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
-    .bio {
-      font-size: 0.92rem;
-      color: #8f94a0;
-      margin-bottom: 32px;
+    /* Имитация входящего сообщения от модели */
+    .chat-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid #ff416c;
+      padding: 10px 14px;
+      border-radius: 6px 12px 12px 6px;
+      font-size: 0.88rem;
+      color: #ffd6e0;
+      margin-bottom: 24px;
+      text-align: left;
+      width: 100%;
+      box-sizing: border-box;
       line-height: 1.4;
+      font-style: italic;
     }
 
     .links {
@@ -63,58 +111,101 @@
       gap: 14px;
     }
 
-    .btn {
+    /* Главная кнопка VIP с анимацией */
+    .btn-vip {
+      position: relative;
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
+      animation: pulse-button 2.5s infinite;
+      transition: transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    @keyframes pulse-button {
+      0% { transform: scale(1); box-shadow: 0 8px 22px rgba(255, 65, 108, 0.4); }
+      50% { transform: scale(1.02); box-shadow: 0 12px 30px rgba(255, 65, 108, 0.65); }
+      100% { transform: scale(1); box-shadow: 0 8px 22px rgba(255, 65, 108, 0.4); }
+    }
+
+    .btn-vip:active {
+      transform: scale(0.98) !important;
+    }
+
+    .btn-vip .sub-label {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #fff0f3;
+      opacity: 0.95;
+    }
+
+    /* Второстепенная кнопка Telegram */
+    .btn-tg {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: #8c9ba8;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      padding: 16px 20px;
-      border-radius: 14px;
-      font-size: 0.98rem;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      outline: none;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-      -webkit-tap-highlight-color: transparent;
+      gap: 6px;
     }
 
-    .btn:active {
-      transform: scale(0.98);
-      opacity: 0.9;
-    }
-
-    .btn-tg {
-      background: #229ED9;
+    .btn-tg:active {
+      background: rgba(255, 255, 255, 0.07);
       color: #ffffff;
-    }
-
-    .btn-vip {
-      background: #1a1c23;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .btn span {
-      margin-right: 8px;
     }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop" alt="Diana Moon" class="avatar">
-    
+    <div class="avatar-wrapper">
+      <img src="avatar.jpg" alt="Diana Moon" class="avatar">
+      <span class="online-pulse"></span>
+    </div>
+
+    <div class="status-badge">
+      <span>●</span> Active Now • Replies in ~2m
+    </div>
+
     <h1 class="name">Diana Moon</h1>
-    <p class="bio">Exclusive daily updates & backstage</p>
+
+    <!-- Персональное сообщение от первого лица -->
+    <div class="chat-bubble">
+      «Hey… I’m in bed reading my DMs right now. Tell me what’s really on your mind tonight ✨»
+    </div>
 
     <div class="links">
-      <button type="button" class="btn btn-tg" id="tgBtn">
-        <span>💬</span> Private Telegram
+      <!-- Главная кнопка -->
+      <button type="button" class="btn-vip" id="vipBtn">
+        <span>🔒 Talk to Me 1-on-1</span>
+        <span class="sub-label">Unlock VIP Chat & Exclusive Gallery</span>
       </button>
 
-      <button type="button" class="btn btn-vip" id="vipBtn">
-        <span>🔒</span> VIP Exclusive Club
+      <!-- Второстепенная кнопка -->
+      <button type="button" class="btn-tg" id="tgBtn">
+        <span>✈️</span> Free Backstage Telegram
       </button>
     </div>
   </div>
@@ -125,18 +216,18 @@
       v: "aHR0cHM6Ly9mYW5zbHkuY29tL0RpYW5hX01vb24="
     };
 
-    document.getElementById("tgBtn").addEventListener("click", function () {
-      const url = atob(routes.t);
-      setTimeout(function () {
-        window.location.href = url;
-      }, 80);
-    });
-
     document.getElementById("vipBtn").addEventListener("click", function () {
       const url = atob(routes.v);
       setTimeout(function () {
         window.location.href = url;
-      }, 80);
+      }, 70);
+    });
+
+    document.getElementById("tgBtn").addEventListener("click", function () {
+      const url = atob(routes.t);
+      setTimeout(function () {
+        window.location.href = url;
+      }, 70);
     });
   </script>
 

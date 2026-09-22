@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alina | VIP Access</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #1f1b2e 0%, #090a0f 100%);
+      color: #e6e8ec;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 390px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Аватарка с индикатором активности */
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .avatar {
+      width: 114px;
+      height: 114px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 3px solid rgba(255, 65, 108, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 65, 108, 0.25);
+    }
+
+    .online-pulse {
+      position: absolute;
+      bottom: 5px;
+      right: 7px;
+      width: 15px;
+      height: 15px;
+      background: #00e676;
+      border-radius: 50%;
+      border: 2.5px solid #090a0f;
+      box-shadow: 0 0 0 rgba(0, 230, 118, 0.5);
+      animation: pulse-green 2s infinite;
+    }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(0, 230, 118, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 230, 118, 0); }
+    }
+
+    /* Бейдж онлайн-статуса */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #00e676;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    /* Персональное сообщение от первого лица */
+    .chat-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 3px solid #ff416c;
+      padding: 10px 14px;
+      border-radius: 6px 12px 12px 6px;
+      font-size: 0.88rem;
+      color: #ffd6e0;
+      margin-bottom: 24px;
+      text-align: left;
+      width: 100%;
+      box-sizing: border-box;
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Главная кнопка VIP с пульсацией */
+    .btn-vip {
+      position: relative;
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4);
+      animation: pulse-button 2.5s infinite;
+      transition: transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    @keyframes pulse-button {
+      0% { transform: scale(1); box-shadow: 0 8px 22px rgba(255, 65, 108, 0.4); }
+      50% { transform: scale(1.02); box-shadow: 0 12px 30px rgba(255, 65, 108, 0.65); }
+      100% { transform: scale(1); box-shadow: 0 8px 22px rgba(255, 65, 108, 0.4); }
+    }
+
+    .btn-vip:active {
+      transform: scale(0.98) !important;
+    }
+
+    .btn-vip .sub-label {
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #fff0f3;
+      opacity: 0.95;
+    }
+
+    /* Второстепенная кнопка Telegram */
+    .btn-tg {
+      width: 100%;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: #8c9ba8;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-tg:active {
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="avatar-wrapper">
+      <!-- ../avatar.jpg берет фото из корня репозитория alina -->
+      <img src="../avatar.jpg" alt="Alina" class="avatar">
+      <span class="online-pulse"></span>
+    </div>
+
+    <div class="status-badge">
+      <span>●</span> Active Now • Replies in ~2m
+    </div>
+
+    <h1 class="name">Alina</h1>
+
+    <div class="chat-bubble">
+      «Hey… I’m in bed reading my DMs right now. Tell me what’s really on your mind tonight ✨»
+    </div>
+
+    <div class="links">
+      <!-- Главная кнопка VIP -->
+      <button type="button" class="btn-vip" id="vipBtn">
+        <span>🔒 Talk to Me 1-on-1</span>
+        <span class="sub-label">Unlock VIP Chat & Exclusive Gallery</span>
+      </button>
+
+      <!-- Второстепенная кнопка Telegram -->
+      <button type="button" class="btn-tg" id="tgBtn">
+        <span>✈️</span> Free Backstage Telegram
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Зашифрованные ссылки (Base64)
+    const routes = {
+      t: "aHR0cHM6Ly90Lm1lLytHYXgyY0xrN1VkMWxPV0k2",
+      v: "aHR0cHM6Ly9mYW5zbHkuY29tL0RpYW5hX01vb24="
+    };
+
+    // Функция обхода In-App браузера Instagram
+    function openExternal(url) {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const isInstagram = ua.indexOf('Instagram') > -1;
+      const isAndroid = /android/i.test(ua);
+      const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+
+      if (isInstagram) {
+        if (isAndroid) {
+          // Вызов нативного Google Chrome на Android через схему intent
+          const cleanUrl = url.replace(/^https?:\/\//, '');
+          window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+          return;
+        } else if (isIOS) {
+          // Попытка вызова Safari на iOS через системный протокол
+          window.location.href = `x-safari-https://${url.replace(/^https?:\/\//, '')}`;
+          setTimeout(function() {
+            window.open(url, '_blank');
+          }, 300);
+          return;
+        }
+      }
+
+      // Обычный переход для браузеров вне Instagram
+      window.location.href = url;
+    }
+
+    // Обработчик клика VIP
+    document.getElementById("vipBtn").addEventListener("click", function () {
+      const targetUrl = atob(routes.v);
+      openExternal(targetUrl);
+    });
+
+    // Обработчик клика Telegram
+    document.getElementById("tgBtn").addEventListener("click", function () {
+      const targetUrl = atob(routes.t);
+      setTimeout(function () {
+        window.location.href = targetUrl;
+      }, 70);
+    });
+  </script>
+
+</body>
+</html>
